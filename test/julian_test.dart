@@ -148,4 +148,17 @@ void main() {
       expect(n2, equals(92));
     });
   });
+
+  group('DJD to DateTime', () {
+    final got = djdToDateTime(23772.990278);
+    test('Year', () => expect(got.year, equals(1965)));
+    test('Month', () => expect(got.month, equals(2)));
+    test('Day', () => expect(got.day, equals(1)));
+
+    test('Hour', () => expect(got.hour, equals(11)));
+    test('Minute', () => expect(got.minute, equals(46)));
+    test('Second', () => expect(got.second, equals(0)));
+    test('Time Zone offset',
+        () => expect(got.timeZoneOffset.inMinutes, equals(0)));
+  });
 }

@@ -190,3 +190,13 @@ double djdZero(int year) {
       (a / 4).truncateToDouble() -
       693595.5;
 }
+
+/// Convert [djd], ], a number of Julian days elapsed since 1900, Jan 0.5,
+/// to DateTime object in UTC.
+DateTime djdToDateTime(double djd) {
+  final ymd = calDay(djd);
+
+  final hms = dms(frac(ymd.day) * 24);
+  return DateTime.utc(ymd.year, ymd.month, ymd.day.truncate(), hms.$1, hms.$2,
+      hms.$3.truncate());
+}
