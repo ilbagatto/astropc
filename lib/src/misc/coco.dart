@@ -16,31 +16,28 @@ const eclToEqu = -1;
 /// Converts between longitude/right ascension and latitude/declination.
 /// The last argument is flag specifying the conversion direction:
 /// [k] = 1 for equatorial -> ecliptical,
-/// [k] =-1 for ecliptical -> equatorial
+/// [k] =-1 for ecliptical -> etquatorial
 ///
-/// The pair of result cordinatesis are passed to the caller via [callback]
-/// function.
+/// Returns the pair of result coordinates.
+///
 /// All angular values are in *radians*.
-void equecl(
-    double x, double y, double e, int k, Function(double, double) callback) {
+(double, double) equecl(double x, double y, double e, int k) {
   final sinE = sin(e);
   final cosE = cos(e);
   final sinX = sin(x);
   final a = atan2(sinX * cosE + k * (tan(y) * sinE), cos(x));
   final b = asin(sin(y) * cosE - k * (cos(y) * sinE * sinX));
-  callback(reduceRad(a), b);
+  return (reduceRad(a), b);
 }
 
-/// Converts between azimuth/altitude and hour-angle/declination.
+/// Converts between *azimuth/altitude* and *hour-angle/declination*.
 /// The equations are symmetrical in the two pairs of coordinates so that
 /// exactly the same code may be used to convert in either direction, there
+/// is no need to specify direction with a swich (see Dufett-Smith, page 35).
 ///
-/// being no need to specify direction with a swich (see Dufett-Smith, page 35).
-/// The pair of result cordinates are passed to the caller via [callback]
-/// function.
+/// Returns The pair of result coordinates.
 /// All angular values are in *radians*.
-void _equhor(
-    double x, double y, double phi, Function(double, double) callback) {
+(double, double) _equhor(double x, double y, double phi) {
   final sx = sin(x);
   final sy = sin(y);
   final sphi = sin(phi);
@@ -54,21 +51,19 @@ void _equhor(
   if (sx > 0) {
     p = pi2 - p;
   }
-  callback(p, q);
+  return (p, q);
 }
 
-// Intermediate function, converts degrees to radians and otherwise.
-void _convertEquEcl(
-    double x, double y, double e, int k, Function(double, double) callback) {
-  equecl(radians(x), radians(y), radians(e), k,
-      (a, b) => callback(degrees(a), degrees(b)));
+/// Intermediate function, converts radians to arc-degrees.
+(double, double) _convertEquEcl(double x, double y, double e, int k) {
+  final (a, b) = equecl(radians(x), radians(y), radians(e), k);
+  return (degrees(a), degrees(b));
 }
 
-// Intermediate function, converts degrees to radians and otherwise.
-void _convertEquHor(
-    double x, double y, double phi, Function(double, double) callback) {
-  _equhor(radians(x), radians(y), radians(phi),
-      (a, b) => callback(degrees(a), degrees(b)));
+/// Intermediate function, converts radians to arc-degrees.
+(double, double) _convertEquHor(double x, double y, double phi) {
+  final (a, b) = _equhor(radians(x), radians(y), radians(phi));
+  return (degrees(a), degrees(b));
 }
 
 /// Convert equatorial to ecliptical coordinates.
@@ -77,12 +72,10 @@ void _convertEquHor(
 /// 2. [delta]: declination
 /// 3. [eps]: obliquity of the ecliptic
 ///
-/// The pair of ecliptic cordinates are passed to the caller via [callback]
-/// function.
+/// Returns the pair of ecliptic coordinates, `(lambda, beta)`.
 /// All angular values are in *arc-degrees*.
-void equ2ecl(
-    double alpha, double delta, double eps, Function(double, double) callback) {
-  _convertEquEcl(alpha, delta, eps, equToEcl, callback);
+(double, double) equ2ecl(double alpha, double delta, double eps) {
+  return _convertEquEcl(alpha, delta, eps, equToEcl);
 }
 
 /// Convert ecliptical to equatorial coordinates.
@@ -91,12 +84,11 @@ void equ2ecl(
 /// 2. [beta]: latitude
 /// 3. [eps]: obliquity of the ecliptic
 ///
-/// The pair of equatorial cordinates are passed to the caller via [callback]
-/// function.
+/// Returns the pair of equatorial coordinates, `(alpha, delta)`.
+///
 /// All angular values are in *arc-degrees*.
-void ecl2equ(
-    double lambda, double beta, double eps, Function(double, double) callback) {
-  _convertEquEcl(lambda, beta, eps, eclToEqu, callback);
+(double, double) ecl2equ(double lambda, double beta, double eps) {
+  return _convertEquEcl(lambda, beta, eps, eclToEqu);
 }
 
 /// Convert equatorial to horizontal coordinates.
@@ -108,14 +100,12 @@ void ecl2equ(
 /// 3. [phi]: the observer's latitude, in degrees, positive in the Nothern
 ///   hemisphere, negative in the Southern.
 ///
-/// The pair of cordinates:
+/// Returns the pair of coordinates:
 /// 1. *azimuth*, in degrees, measured westward from the South
 /// 2. *altitude*, in degrees, positive above the horizon
 ///
-/// are passed to the caller via [callback]  function.
-void equ2hor(
-    double h, double delta, double phi, Function(double, double) callback) {
-  _convertEquHor(h, delta, phi, callback);
+(double, double) equ2hor(double h, double delta, double phi) {
+  return _convertEquHor(h, delta, phi);
 }
 
 /// Convert horizontal to equatorial coordinates.
@@ -124,15 +114,13 @@ void equ2hor(
 /// 1. [az]: azimuth, in radians, measured westwards from the South.
 ///    `h = LST - RA` (RA = Right Ascension)
 /// 2. alt: altitude, in radians, positive above the horizon
-/// 3. phi: the observer's latitude, in radians, positive in the nothern hemisphere,
-///    negative in the southern one
+/// 3. phi: the observer's latitude, in radians, positive in the nothern
+///    hemisphere, negative in the southern one
 ///
-/// The pair of cordinates:
+/// Returns the pair of coordinates:
 /// 1. *hour angle*, in degrees
 /// 2. *declination*, in degrees
 ///
-/// are passed to the caller via [callback]  function.
-void hor2equ(
-    double az, double alt, double phi, Function(double, double) callback) {
-  _convertEquHor(az, alt, phi, callback);
+(double, double) hor2equ(double az, double alt, double phi) {
+  return _convertEquHor(az, alt, phi);
 }

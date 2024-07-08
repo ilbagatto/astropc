@@ -40,46 +40,42 @@ final casesEquHor = [
 
 void main() {
   group('Equatorial -> Eclipical', () {
-    for (var c in casesEquEcl) {
-      equ2ecl(c['ra']!, c['de']!, c['ob']!, (lo, la) {
-        test('Lambda for ${c['ra']}, ${c['de']}',
-            () => expect(lo, closeTo(c['lo']!, delta)));
-        test('Beta for ${c['ra']}, ${c['de']}',
-            () => expect(la, closeTo(c['la']!, delta)));
-      });
+    for (final c in casesEquEcl) {
+      final (lo, la) = equ2ecl(c['ra']!, c['de']!, c['ob']!);
+      test('Lambda for ${c['ra']}, ${c['de']}',
+          () => expect(lo, closeTo(c['lo']!, delta)));
+      test('Beta for ${c['ra']}, ${c['de']}',
+          () => expect(la, closeTo(c['la']!, delta)));
     }
   });
 
   group('Eclipical -> Equatorial', () {
-    for (var c in casesEquEcl) {
-      ecl2equ(c['lo']!, c['la']!, c['ob']!, (ra, de) {
-        test('Alpha for ${c['lo']}, ${c['la']}',
-            () => expect(ra, closeTo(c['ra']!, delta)));
-        test('Delta for ${c['lo']}, ${c['la']}',
-            () => expect(de, closeTo(c['de']!, delta)));
-      });
+    for (final c in casesEquEcl) {
+      final (ra, de) = ecl2equ(c['lo']!, c['la']!, c['ob']!);
+      test('Alpha for ${c['lo']}, ${c['la']}',
+          () => expect(ra, closeTo(c['ra']!, delta)));
+      test('Delta for ${c['lo']}, ${c['la']}',
+          () => expect(de, closeTo(c['de']!, delta)));
     }
   });
 
   group('Equatorial -> Horizontal', () {
-    for (var c in casesEquHor) {
-      equ2hor(c['ha']! * 15, c['de']!, c['gl']!, (az, al) {
-        test('Azimuth for ${c['ha']}, ${c['de']}',
-            () => expect(az, closeTo(c['az']!, delta)));
-        test('Altitude for ${c['ha']}, ${c['de']}',
-            () => expect(al, closeTo(c['al']!, delta)));
-      });
+    for (final c in casesEquHor) {
+      final (az, al) = equ2hor(c['ha']! * 15, c['de']!, c['gl']!);
+      test('Azimuth for ${c['ha']}, ${c['de']}',
+          () => expect(az, closeTo(c['az']!, delta)));
+      test('Altitude for ${c['ha']}, ${c['de']}',
+          () => expect(al, closeTo(c['al']!, delta)));
     }
   });
 
   group('Horizontal -> Equatorial', () {
-    for (var c in casesEquHor) {
-      hor2equ(c['az']!, c['al']!, c['gl']!, (ha, de) {
-        test('Hour angle for ${c['az']}, ${c['al']}',
-            () => expect(ha / 15, closeTo(c['ha']!, delta)));
-        test('Declination for ${c['az']}, ${c['al']}',
-            () => expect(de, closeTo(c['de']!, delta)));
-      });
+    for (final c in casesEquHor) {
+      final (ha, de) = hor2equ(c['az']!, c['al']!, c['gl']!);
+      test('Hour angle for ${c['az']}, ${c['al']}',
+          () => expect(ha / 15, closeTo(c['ha']!, delta)));
+      test('Declination for ${c['az']}, ${c['al']}',
+          () => expect(de, closeTo(c['de']!, delta)));
     }
   });
 }
