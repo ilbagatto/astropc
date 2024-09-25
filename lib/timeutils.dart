@@ -1,6 +1,6 @@
 /// Time-related rouines.
 
-library timeutils;
+library;
 
 export 'src/timeutils/julian.dart';
 export 'src/timeutils/deltat.dart';

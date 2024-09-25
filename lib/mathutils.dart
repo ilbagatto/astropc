@@ -1,5 +1,5 @@
 /// Core mathematical routines for astronomical calculations.
 
-library mathutils;
+library;
 
 export 'src/mathutils.dart';

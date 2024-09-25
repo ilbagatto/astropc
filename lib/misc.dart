@@ -1,6 +1,6 @@
 /// Celestial sphera.
 ///
-library misc;
+library;
 
 export 'src/misc/nutation.dart';
 export 'src/misc/obliquity.dart';

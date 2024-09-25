@@ -1,6 +1,6 @@
 /// Positions of the planets including Pluto.
 
-library heliocentric;
+library;
 
 export 'src/heliocentric/sphera.dart';
 export 'src/heliocentric/planet.dart';
