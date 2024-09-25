@@ -1,6 +1,5 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+/// Time-related rouines.
+
 library timeutils;
 
 export 'src/timeutils/julian.dart';

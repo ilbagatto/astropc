@@ -1,3 +1,5 @@
+/// Positions of the planets including Pluto.
+
 library heliocentric;
 
 export 'src/heliocentric/sphera.dart';

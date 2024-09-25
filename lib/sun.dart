@@ -1,3 +1,5 @@
+/// Sun position, solstices, equinoxes.
+
 library sun;
 
 export 'src/sun/sun.dart';

@@ -2,7 +2,7 @@ library;
 
 import 'dart:math';
 
-/// `2 * PI`
+/// `2 * PI` = 360 degrees in radians
 final pi2 = pi * 2;
 
 /// Decompose a floating-point number [x].
@@ -99,8 +99,12 @@ double shortestArcRad(double a, double b) {
   return x > pi ? pi2 - x : x;
 }
 
-// Polar coordinates
+/// Polar coordinates
 typedef Polar = ({
-  double rho, // Radial coordinate
-  double phi // Angular coordinate
+  double rho,
+
+  /// Radial coordinate
+  double phi
+
+  /// Angular coordinate
 });

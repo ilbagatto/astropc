@@ -1,9 +1,5 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+/// Core mathematical routines for astronomical calculations.
+
 library mathutils;
 
 export 'src/mathutils.dart';
-
-
-// TODO: Export any libraries intended for clients of this package.
