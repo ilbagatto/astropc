@@ -50,6 +50,9 @@ abstract class CelestialContext {
   /// If true, then the true geocentric position will be corrected
   /// for nutation and aberration.
   bool get apparent;
+
+  /// obliquity of the ecliptic, arc-degrees
+  double get obliquity;
 }
 
 /// Ecliptic posiion of a celestial body

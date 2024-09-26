@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:vector_math/vector_math.dart';
 
-import '../../heliocentric.dart';
+import '../../planets.dart';
 import '../../mathutils.dart';
 
 /// A record holding perturbations for heliocentric orbit.
@@ -152,7 +152,7 @@ class PertMars extends PertCalculator {
 
 class PertJupiter extends PertCalculator {
   PertJupiter() : super(PlanetId.Jupiter);
-@override
+  @override
   PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
     final s = ctx.getOrbitInstance(id).s;
     final x = ctx.auxSun;
@@ -272,12 +272,12 @@ class PertJupiter extends PertCalculator {
     da *= 1e-6;
 
     return (dl: 0, dr: 0, dml: dml, ds: ds, dm: dm, da: da, dhl: 0);
-  }  
+  }
 }
 
 class PertSaturn extends PertCalculator {
   PertSaturn() : super(PlanetId.Saturn);
-@override
+  @override
   PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
     final s = ctx.getOrbitInstance(id).s;
     final x = ctx.auxSun;
@@ -463,12 +463,12 @@ class PertSaturn extends PertCalculator {
     dhl = radians(dhl);
 
     return (dl: 0, dr: 0, dml: dml, ds: ds, dm: dm, da: da, dhl: dhl);
-  }  
+  }
 }
 
 class PertUranus extends PertCalculator {
   PertUranus() : super(PlanetId.Uranus);
-@override
+  @override
   PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
     final t = ctx.t;
     final s = ctx.getOrbitInstance(id).s;
@@ -534,12 +534,12 @@ class PertUranus extends PertCalculator {
     dr *= 1e-6;
 
     return (dl: dl, dr: dr, dml: dml, ds: ds, dm: dm, da: da, dhl: dhl);
-  }  
+  }
 }
 
 class PertNeptune extends PertCalculator {
   PertNeptune() : super(PlanetId.Neptune);
-@override
+  @override
   PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
     final t = ctx.t;
     final s = ctx.getOrbitInstance(id).s;
@@ -588,7 +588,7 @@ class PertNeptune extends PertCalculator {
     dr *= 1e-6;
 
     return (dl: dl, dr: dr, dml: dml, ds: ds, dm: dm, da: da, dhl: dhl);
-  }  
+  }
 }
 
 class PertPluto extends PertCalculator {
@@ -596,5 +596,5 @@ class PertPluto extends PertCalculator {
   @override
   PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
     return (dl: 0, dr: 0, dml: 0, ds: 0, dm: 0, da: 0, dhl: 0);
-  }  
+  }
 }

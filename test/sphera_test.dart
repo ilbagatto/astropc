@@ -29,6 +29,8 @@ void main() {
         'Delta-Eps',
         () => expect(
             sph.nutation.deltaEps, closeTo(0.0006849657311651972, delta)));
+    test('Obliquity',
+        () => expect(sph.obliquity, closeTo(23.442041099302447, delta)));
   });
 
   group('Mean Anomalies', () {

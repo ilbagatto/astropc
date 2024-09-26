@@ -7,6 +7,7 @@ import 'common.dart';
 import 'orbit.dart';
 import '../../mathutils.dart';
 import '../misc/nutation.dart' as libnut;
+import '../misc/obliquity.dart' as libobl;
 import '../../timeutils.dart';
 import '../sun/sun.dart' as sun;
 
@@ -21,15 +22,11 @@ class CelestialSphera implements CelestialContext {
 
   final List<double> _auxSun = [];
   final Map<PlanetId, OrbitInstance> _orbits = {};
+  final double _obliquity;
 
   /// Private constructor.
-  CelestialSphera._(
-    this._t,
-    this._sunGeo,
-    this._ms,
-    this._nut,
-    this._apparent,
-  );
+  CelestialSphera._(this._t, this._sunGeo, this._ms, this._nut, this._apparent,
+      this._obliquity);
 
   /// Factory that substitutes the constructor.
   factory CelestialSphera(
@@ -38,8 +35,10 @@ class CelestialSphera implements CelestialContext {
   }) {
     final t = djd / daysPerCent;
     final ms = sun.meanAnomaly(t);
-    return CelestialSphera._(t, sun.trueGeocentric(t, ms), radians(ms),
-        libnut.nutation(t), apparent);
+    final nu = libnut.nutation(t);
+    final ob = libobl.obliquity(djd, deps: nu.deltaEps);
+    return CelestialSphera._(
+        t, sun.trueGeocentric(t, ms), radians(ms), nu, apparent, ob);
   }
 
   /// Auxiliraly Sun-related elements needed for calculating perturbations.
@@ -98,4 +97,7 @@ class CelestialSphera implements CelestialContext {
   /// for nutation and aberration.
   @override
   bool get apparent => _apparent;
+
+  @override
+  double get obliquity => _obliquity;
 }
