@@ -1,5 +1,5 @@
-import 'package:astropc/src/heliocentric/common.dart';
-import 'package:astropc/src/heliocentric/sphera.dart';
+import 'package:astropc/src/planets/common.dart';
+import 'package:astropc/src/planets/sphera.dart';
 import 'package:test/test.dart';
 import 'package:vector_math/vector_math.dart';
 

@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:astropc/src/heliocentric/orbit.dart';
+import 'package:astropc/src/planets/orbit.dart';
 
 const delta = 1e-6;
 

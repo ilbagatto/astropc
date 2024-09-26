@@ -1,6 +1,6 @@
-import 'package:astropc/src/heliocentric/helio.dart';
-import 'package:astropc/src/heliocentric/orbit.dart';
-import 'package:astropc/src/heliocentric/pert.dart';
+import 'package:astropc/src/planets/helio.dart';
+import 'package:astropc/src/planets/orbit.dart';
+import 'package:astropc/src/planets/pert.dart';
 import 'package:test/test.dart';
 
 const delta = 1e-6;

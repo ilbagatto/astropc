@@ -1,44 +1,12 @@
-import 'package:astropc/src/heliocentric/planets/jupiter.dart';
-import 'package:astropc/src/heliocentric/planets/mars.dart';
-import 'package:astropc/src/heliocentric/planets/mercury.dart';
-import 'package:astropc/src/heliocentric/planets/neptune.dart';
-import 'package:astropc/src/heliocentric/planets/pluto.dart';
-import 'package:astropc/src/heliocentric/planets/saturn.dart';
-import 'package:astropc/src/heliocentric/planets/uranus.dart';
-import 'package:astropc/src/heliocentric/planets/venus.dart';
-import 'package:astropc/src/heliocentric/sphera.dart';
+import 'package:astropc/src/planets/sphera.dart';
 import 'package:test/test.dart';
-import 'package:astropc/src/heliocentric/planet.dart';
-import 'package:astropc/src/heliocentric/common.dart';
+import 'package:astropc/src/planets/planet.dart';
+import 'package:astropc/src/planets/common.dart';
 
 typedef PlanPos = ({PlanetId id, EclipticPosition pos});
 
 void main() {
   group('Factory methods', () {
-    test('Get planet by id', () {
-      for (final id in PlanetId.values) {
-        final pla = Planet.forId(id);
-        switch (id) {
-          case PlanetId.Mercury:
-            expect(pla is Mercury, true);
-          case PlanetId.Venus:
-            expect(pla is Venus, true);
-          case PlanetId.Mars:
-            expect(pla is Mars, true);
-          case PlanetId.Jupiter:
-            expect(pla is Jupiter, true);
-          case PlanetId.Saturn:
-            expect(pla is Saturn, true);
-          case PlanetId.Uranus:
-            expect(pla is Uranus, true);
-          case PlanetId.Neptune:
-            expect(pla is Neptune, true);
-          case PlanetId.Pluto:
-            expect(pla is Pluto, true);
-        }
-      }
-    });
-
     test('Get planet by name', () {
       const names = [
         'Mercury',
@@ -55,21 +23,21 @@ void main() {
         final pla = Planet.forName(name);
         switch (name) {
           case 'Mercury':
-            expect(pla is Mercury, true);
+            expect(pla.id == PlanetId.Mercury, true);
           case 'Venus':
-            expect(pla is Venus, true);
+            expect(pla.id == PlanetId.Venus, true);
           case 'Mars':
-            expect(pla is Mars, true);
+            expect(pla.id == PlanetId.Mars, true);
           case 'Jupiter':
-            expect(pla is Jupiter, true);
+            expect(pla.id == PlanetId.Jupiter, true);
           case 'Saturn':
-            expect(pla is Saturn, true);
+            expect(pla.id == PlanetId.Saturn, true);
           case 'Uranus':
-            expect(pla is Uranus, true);
+            expect(pla.id == PlanetId.Uranus, true);
           case 'Neptune':
-            expect(pla is Neptune, true);
+            expect(pla.id == PlanetId.Neptune, true);
           case 'Pluto':
-            expect(pla is Pluto, true);
+            expect(pla.id == PlanetId.Pluto, true);
         }
       }
     });

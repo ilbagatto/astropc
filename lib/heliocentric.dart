@@ -2,6 +2,6 @@
 
 library;
 
-export 'src/heliocentric/sphera.dart';
-export 'src/heliocentric/planet.dart';
-export 'src/heliocentric/common.dart';
+export 'src/planets/sphera.dart';
+export 'src/planets/planet.dart';
+export 'src/planets/common.dart';
