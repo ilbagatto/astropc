@@ -7,6 +7,7 @@ import '../misc/kepler.dart';
 import 'common.dart';
 import 'orbit.dart';
 import 'pert.dart';
+import 'sphera.dart';
 
 // Params of calculated planetary heliocentric orbit
 typedef HelioRecord = ({
@@ -216,7 +217,7 @@ class Planet {
   /// [ctx] is a context, [dt] is optional `delta-T` in seconds.
   /// Typically, some members of the returned PertRecord instance are
   /// initialized while others contain zeroes.
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     return pertCalculator.calculatePerturbations(ctx, dt);
   }
 
@@ -234,7 +235,7 @@ class Planet {
   /// > <cite>_Peter Duffett-Smith, p.137-138</cite>
   ///
   HelioRecord _getCorrectedHelio(
-      CelestialContext ctx, OrbitInstance oi, double lg, double rg,
+      CelestialSphera ctx, OrbitInstance oi, double lg, double rg,
       [double dt = 0, double rho = 0]) {
     final ma = ctx.getMeanAnomaly(id, dt);
     final pert = calculatePerturbations(ctx, dt);
@@ -254,7 +255,7 @@ class Planet {
     );
   }
 
-  EclipticPosition geocentricPosition(CelestialContext ctx) {
+  EclipticPosition geocentricPosition(CelestialSphera ctx) {
     final sg = ctx.sunGeocentric;
     // convert logitude of the Sun to Earth's position
     final lg = radians(sg.phi) + pi;

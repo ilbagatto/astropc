@@ -54,7 +54,7 @@ abstract class PertCalculator {
   /// [dt] is optional delta-T in seconds. Defaults to **0.0**.
   /// Returns `PertRecord` instance. Typically, some members are
   /// initialized while others contain zeroes.
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]);
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]);
 }
 
 /// Mercury perturbations.
@@ -62,7 +62,7 @@ class PertMercury extends PertCalculator {
   PertMercury() : super(PlanetId.Mercury);
 
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     final me = ctx.getMeanAnomaly(id, dt);
     final ve = ctx.getMeanAnomaly(PlanetId.Venus, dt);
     final ju = ctx.getMeanAnomaly(PlanetId.Jupiter, dt);
@@ -83,7 +83,7 @@ class PertVenus extends PertCalculator {
   PertVenus() : super(PlanetId.Venus);
 
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     final t = ctx.t;
     final ms = ctx.sunMeanAnomaly;
     final ve = ctx.getMeanAnomaly(PlanetId.Venus, dt);
@@ -110,7 +110,7 @@ class PertVenus extends PertCalculator {
 class PertMars extends PertCalculator {
   PertMars() : super(PlanetId.Mars);
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     final ve = ctx.getMeanAnomaly(PlanetId.Venus, dt);
     final ju = ctx.getMeanAnomaly(PlanetId.Jupiter, dt);
 
@@ -153,7 +153,7 @@ class PertMars extends PertCalculator {
 class PertJupiter extends PertCalculator {
   PertJupiter() : super(PlanetId.Jupiter);
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     final s = ctx.getOrbitInstance(id).s;
     final x = ctx.auxSun;
     final x1 = x[0];
@@ -278,7 +278,7 @@ class PertJupiter extends PertCalculator {
 class PertSaturn extends PertCalculator {
   PertSaturn() : super(PlanetId.Saturn);
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     final s = ctx.getOrbitInstance(id).s;
     final x = ctx.auxSun;
     final x1 = x[0];
@@ -469,7 +469,7 @@ class PertSaturn extends PertCalculator {
 class PertUranus extends PertCalculator {
   PertUranus() : super(PlanetId.Uranus);
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     final t = ctx.t;
     final s = ctx.getOrbitInstance(id).s;
     final x = ctx.auxSun;
@@ -540,7 +540,7 @@ class PertUranus extends PertCalculator {
 class PertNeptune extends PertCalculator {
   PertNeptune() : super(PlanetId.Neptune);
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     final t = ctx.t;
     final s = ctx.getOrbitInstance(id).s;
     final x = ctx.auxSun;
@@ -594,7 +594,7 @@ class PertNeptune extends PertCalculator {
 class PertPluto extends PertCalculator {
   PertPluto() : super(PlanetId.Pluto);
   @override
-  PertRecord calculatePerturbations(CelestialContext ctx, [double dt = 0]) {
+  PertRecord calculatePerturbations(CelestialSphera ctx, [double dt = 0]) {
     return (dl: 0, dr: 0, dml: 0, ds: 0, dm: 0, da: 0, dhl: 0);
   }
 }

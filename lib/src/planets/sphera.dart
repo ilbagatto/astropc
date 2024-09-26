@@ -11,7 +11,7 @@ import '../misc/obliquity.dart' as libobl;
 import '../../timeutils.dart';
 import '../sun/sun.dart' as sun;
 
-class CelestialSphera implements CelestialContext {
+class CelestialSphera {
   final bool _apparent;
   final double _t; // time in centuries since Jan 1900, 0
   // lsn: longitude of Sun, arc-degrees
@@ -43,7 +43,6 @@ class CelestialSphera implements CelestialContext {
 
   /// Auxiliraly Sun-related elements needed for calculating perturbations.
   /// Once calculated, the values are cached.
-  @override
   List<double> get auxSun {
     if (_auxSun.isEmpty) {
       final vals = buildAuxSun(_t);
@@ -55,7 +54,6 @@ class CelestialSphera implements CelestialContext {
   /// Given [id] of a planet, return its mean anomaly **in radians**.
   /// [dt] parameter is a time correction necessary when calculating
   /// *true* (light-time corrected) planetary positions.
-  @override
   double getMeanAnomaly(PlanetId id, [double dt = 0]) {
     double ma = getOrbitInstance(id).ma;
     if (dt != 0) {
@@ -65,12 +63,10 @@ class CelestialSphera implements CelestialContext {
   }
 
   /// Nutation.
-  @override
   libnut.NutationRecord get nutation => _nut;
 
   /// Given [id] of a planet, return its orbit instantiated for a given moment.
   /// Once calculated, the `OrbitInstance` record is saved to the cache.
-  @override
   OrbitInstance getOrbitInstance(PlanetId id) {
     if (_orbits.containsKey(id)) {
       return _orbits[id]!;
@@ -82,22 +78,17 @@ class CelestialSphera implements CelestialContext {
   }
 
   /// True geocentric coordinates of the Sun.
-  @override
   Polar get sunGeocentric => _sunGeo;
 
   /// Mean anomaly of the Sun, in radians.
-  @override
   double get sunMeanAnomaly => _ms;
 
   /// Number of Julian days elapsed since 1900, Jan 0.5.
-  @override
   double get t => _t;
 
   /// If true, then the true geocentric position will be corrected
   /// for nutation and aberration.
-  @override
   bool get apparent => _apparent;
 
-  @override
   double get obliquity => _obliquity;
 }
