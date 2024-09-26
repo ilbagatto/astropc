@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:vector_math/vector_math.dart';
 import '../timeutils/julian.dart';
-import '../misc/nutation.dart';
+import '../sphera/nutation.dart';
 import '../mathutils.dart';
-import '../misc/kepler.dart';
+import '../kepler.dart';
 
 const aberration = 5.69e-3; // aberration in degrees
 

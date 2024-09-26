@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 library;
 
-import '../misc/nutation.dart';
+import '../sphera/nutation.dart';
 import '../mathutils.dart';
 import 'orbit.dart';
 

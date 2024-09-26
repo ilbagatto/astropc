@@ -6,8 +6,8 @@ import 'planet.dart';
 import 'common.dart';
 import 'orbit.dart';
 import '../../mathutils.dart';
-import '../misc/nutation.dart' as libnut;
-import '../misc/obliquity.dart' as libobl;
+import '../sphera/nutation.dart' as libnut;
+import '../sphera/obliquity.dart' as libobl;
 import '../../timeutils.dart';
 import '../sun/sun.dart' as sun;
 

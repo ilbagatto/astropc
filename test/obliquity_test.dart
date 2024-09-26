@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:astropc/misc.dart';
+import 'package:astropc/sphera.dart';
 
 const delta = 1E-4; // result precision
 

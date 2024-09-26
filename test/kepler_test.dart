@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:astropc/src/misc/kepler.dart';
+import 'package:astropc/src/kepler.dart';
 
 const delta = 1E-4; // result precision
 
