@@ -31,19 +31,6 @@ typedef HelioRecord = ({
   double rho
 });
 
-/// Ecliptic posiion of a celestial body
-///
-typedef EclipticPosition = ({
-  /// geocentric ecliptic longitude, arc-degrees
-  double lambda,
-
-  /// geocentric ecliptic latitude, arc-degrees
-  double beta,
-
-  /// distance from the Earth. A.U.
-  double delta
-});
-
 class Planet {
   /// Osculating elements of the orbit
   final OElements orbit;
