@@ -10,6 +10,19 @@ import '../sphera/obliquity.dart' as libobl;
 import '../../timeutils.dart';
 import '../sun/sun.dart' as sun;
 
+/// Ecliptic posiion of a celestial body
+///
+typedef EclipticPosition = ({
+  /// geocentric ecliptic longitude, arc-degrees
+  double lambda,
+
+  /// geocentric ecliptic latitude, arc-degrees
+  double beta,
+
+  /// distance from the Earth. A.U.
+  double delta
+});
+
 class CelestialSphera {
   final bool _apparent;
   final double _t; // time in centuries since Jan 1900, 0
