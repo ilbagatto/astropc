@@ -4,4 +4,3 @@ library;
 
 export 'src/planets/sphera.dart';
 export 'src/planets/planet.dart';
-export 'src/planets/common.dart';

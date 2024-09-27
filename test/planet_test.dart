@@ -3,7 +3,6 @@ import 'package:astropc/src/planets/pert.dart';
 import 'package:astropc/src/planets/sphera.dart';
 import 'package:test/test.dart';
 import 'package:astropc/src/planets/planet.dart';
-import 'package:astropc/src/planets/common.dart';
 
 typedef PlanPos = ({PlanetId id, EclipticPosition pos});
 

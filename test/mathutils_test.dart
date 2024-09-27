@@ -169,4 +169,21 @@ void main() {
       });
     }
   });
+
+  group('Diff angles', () {
+    const cases = [
+      [75, 10, -65],
+      [10, 75, 65],
+      [280, 30, 110],
+      [30, 280, -110],
+    ];
+
+    for (var c in cases) {
+      final a = c[0] as double;
+      final b = c[1] as double;
+      test('a = $a, b = $b, deg.', () {
+        expect(diffAngle(a, b), closeTo(c[2], delta));
+      });
+    }
+  });
 }

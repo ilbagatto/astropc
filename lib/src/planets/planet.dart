@@ -1,13 +1,25 @@
+// ignore_for_file: constant_identifier_names
 import 'dart:math';
 
 import 'package:vector_math/vector_math.dart';
 
 import '../../mathutils.dart';
 import '../kepler.dart';
-import 'common.dart';
 import 'orbit.dart';
 import 'pert.dart';
 import 'sphera.dart';
+
+/// Planets identifiers
+enum PlanetId {
+  Mercury,
+  Venus,
+  Mars,
+  Jupiter,
+  Saturn,
+  Uranus,
+  Neptune,
+  Pluto,
+}
 
 // Params of calculated planetary heliocentric orbit
 typedef HelioRecord = ({
@@ -17,6 +29,19 @@ typedef HelioRecord = ({
   double spsi,
   double cpsi,
   double rho
+});
+
+/// Ecliptic posiion of a celestial body
+///
+typedef EclipticPosition = ({
+  /// geocentric ecliptic longitude, arc-degrees
+  double lambda,
+
+  /// geocentric ecliptic latitude, arc-degrees
+  double beta,
+
+  /// distance from the Earth. A.U.
+  double delta
 });
 
 class Planet {
