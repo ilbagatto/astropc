@@ -161,4 +161,12 @@ void main() {
     test('Time Zone offset',
         () => expect(got.timeZoneOffset.inMinutes, equals(0)));
   });
+
+  group('DateTime to DJD', () {
+    test('UTC DateTime', () {
+      final dt = DateTime.utc(1965, 2, 1, 11, 46);
+      final got = dateTimeToDjd(dt);
+      expect(got, closeTo(23772.990277, 1e-6));
+    });
+  });
 }

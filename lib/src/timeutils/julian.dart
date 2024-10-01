@@ -145,7 +145,7 @@ double julDay(int ye, int mo, double da) {
 }
 
 /// DJD at Greenwich midnight.
-/// Given [djd], a number of Julian days elapsed since 1900, Jan 0.5,
+/// Given [djd], a number of Julian days elapsed since **1900, Jan 0.5**,
 /// return DJD at Greenwich midnight
 double djdMidnight(double djd) {
   final f = djd.floor();
@@ -153,7 +153,7 @@ double djdMidnight(double djd) {
 }
 
 /// Day of week.
-/// Given [djd], a number of Julian days elapsed since 1900, Jan 0.5,
+/// Given [djd], a number of Julian days elapsed since **1900, Jan 0.5**,
 /// return number in range (0..6) corresponding to weekDay:
 /// `0` for Sunday, `1` for Monday and so on.
 int weekDay(double djd) {
@@ -191,7 +191,7 @@ double djdZero(int year) {
       693595.5;
 }
 
-/// Convert [djd], ], a number of Julian days elapsed since 1900, Jan 0.5,
+/// Convert [djd], a number of Julian days elapsed since **1900, Jan 0.5**,
 /// to DateTime object in UTC.
 DateTime djdToDateTime(double djd) {
   final ymd = calDay(djd);
@@ -199,4 +199,15 @@ DateTime djdToDateTime(double djd) {
   final hms = dms(frac(ymd.day) * 24);
   return DateTime.utc(ymd.year, ymd.month, ymd.day.truncate(), hms.$1, hms.$2,
       hms.$3.truncate());
+}
+
+/// Givan [dt], a DateTime object, calculate number of Julian days
+/// elapsed since **1900, Jan 0.5**.
+double dateTimeToDjd(DateTime? dt) {
+  dt ??= DateTime.now();
+  final ut = dt.toUtc();
+  final hm =
+      ddd(ut.hour, ut.minute, ut.second.toDouble() + ut.millisecond / 1000);
+  final dh = ut.day.toDouble() + hm / 24.0;
+  return julDay(ut.year, ut.month, dh);
 }
