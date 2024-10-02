@@ -7,7 +7,7 @@ import 'orbit.dart';
 import '../../mathutils.dart';
 import '../sphera/nutation.dart' as libnut;
 import '../sphera/obliquity.dart' as libobl;
-import '../../timeutils.dart';
+import '../../timeutils.dart' as timeutils;
 import '../sun/sun.dart' as sun;
 
 /// Ecliptic posiion of a celestial body
@@ -35,22 +35,25 @@ class CelestialSphera {
   final List<double> _auxSun = [];
   final Map<PlanetId, OrbitInstance> _orbits = {};
   final double _obliquity;
+  final double _deltaT;
 
-  /// Private constructor.
+  /// Private constructor
   CelestialSphera._(this._t, this._sunGeo, this._ms, this._nut, this._apparent,
-      this._obliquity);
+      this._obliquity, this._deltaT);
 
   /// Factory that substitutes the constructor.
   factory CelestialSphera(
     double djd, {
     apparent = true,
   }) {
-    final t = djd / daysPerCent;
+    final dt = timeutils.deltaT(djd);
+    //final t = (djd + dt / 86400.0) / timeutils.daysPerCent;
+    final t = djd / timeutils.daysPerCent;
     final ms = sun.meanAnomaly(t);
     final nu = libnut.nutation(t);
     final ob = libobl.obliquity(djd, deps: nu.deltaEps);
     return CelestialSphera._(
-        t, sun.trueGeocentric(t, ms), radians(ms), nu, apparent, ob);
+        t, sun.trueGeocentric(t, ms), radians(ms), nu, apparent, ob, dt);
   }
 
   /// Auxiliraly Sun-related elements needed for calculating perturbations.
@@ -103,4 +106,7 @@ class CelestialSphera {
   bool get apparent => _apparent;
 
   double get obliquity => _obliquity;
+
+  /// Delta-T in seconds
+  double get deltaT => _deltaT;
 }
