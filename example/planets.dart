@@ -82,7 +82,7 @@ void displayObject(
   String xStr, yStr;
   switch (format) {
     case 'd':
-      final xFmt = coordsType == CoordsType.equatorial ? '%5.2f' : '%6.2f';
+      final xFmt = coordsType == CoordsType.equatorial ? '%05.2f' : '%06.2f';
       xStr = sprintf(xFmt, [x]);
       yStr = sprintf('%s%05.2f', [sgn, coords.y.abs()]);
     default:

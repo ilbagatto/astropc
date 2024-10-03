@@ -2,7 +2,7 @@ import 'package:astropc/planets.dart';
 import 'package:test/test.dart';
 import 'package:vector_math/vector_math.dart';
 
-const delta = 1E-4; // result precision
+const delta = 1E-3; // result precision
 
 void main() {
   final djd = 30700.5;

@@ -1,6 +1,6 @@
 name: astropc
 description: Base calculations for practical astronomy.
-version: 1.2.3
+version: 1.2.4
 repository: https://github.com/ilbagatto/astropc
 
 environment:
