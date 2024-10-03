@@ -22,7 +22,7 @@ ${parser.usage}
 DJD is a modified Julian day since 1900 January 0.5 (1989 December 31.5).
 
 Example:
-planets 243879.990277 # Feb 1, 1965, 11:46UT
+planets 23772.990277 # Feb 1, 1965, UT 11:46
 
 ''';
 }
