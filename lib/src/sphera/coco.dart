@@ -7,6 +7,9 @@ import 'package:vector_math/vector_math.dart';
 
 import '../mathutils.dart';
 
+/// Coordinates types.
+enum CoordsType { ecliptical, equatorial, horizontal }
+
 /// @nodoc
 const equToEcl = 1;
 
@@ -80,6 +83,7 @@ const eclToEqu = -1;
 
 /// Convert ecliptical to equatorial coordinates.
 /// Arguments:
+///
 /// 1. [lambda]: longiude
 /// 2. [beta]: latitude
 /// 3. [eps]: obliquity of the ecliptic
@@ -91,7 +95,6 @@ const eclToEqu = -1;
   return _convertEquEcl(lambda, beta, eps, eclToEqu);
 }
 
-/// Convert equatorial to horizontal coordinates.
 ///
 /// Arguments:
 /// 1. [h]: the local hour angle, in degrees, measured westwards from the South.

@@ -84,7 +84,6 @@ double meanNode(double t) => reduceDeg(polynome(
 ///
 /// Given [djd], number of Julian days since 1900 Jan. 0.5.,
 /// return a [MoonPosition] record.
-/// All the above are passed as arguments to the [callback] function
 MoonPosition truePosition(double djd) {
   final t = djd / 36525;
   final t2 = t * t;

@@ -42,13 +42,14 @@ class CelestialSphera {
       this._obliquity, this._deltaT);
 
   /// Factory that substitutes the constructor.
+  /// 
   factory CelestialSphera(
     double djd, {
     apparent = true,
   }) {
     final dt = timeutils.deltaT(djd);
-    //final t = (djd + dt / 86400.0) / timeutils.daysPerCent;
-    final t = djd / timeutils.daysPerCent;
+    final t = (djd + dt / 86400.0) / timeutils.daysPerCent;
+    // final t = djd / timeutils.daysPerCent;
     final ms = sun.meanAnomaly(t);
     final nu = libnut.nutation(t);
     final ob = libobl.obliquity(djd, deps: nu.deltaEps);
