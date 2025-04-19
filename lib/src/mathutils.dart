@@ -22,8 +22,7 @@ final pi2 = pi * 2;
 /// [terms] is a list of coefficients
 /// Example `polynome(10.0, [1.0, 2.0, 3.0])` gives `321.0`.
 double polynome(double t, List<double> terms) {
-  final rev = List.from(terms.reversed);
-  return rev.reduce((a, b) => a * t + b);
+  return terms.reversed.fold(0.0, (a, b) => a * t + b);
 }
 
 /// Reduces [x] to 0 >= x < [r]
@@ -45,16 +44,34 @@ double frac(double x) {
   return x < 0 ? -res : res;
 }
 
-/// Used with polinomial function for better accuracy.
+/// Converts the fractional part of a revolution count [x] into degrees.
+///
+/// This function is commonly used in astronomical or astrological calculations
+/// to isolate the non-integer part of a number representing full revolutions
+/// (e.g., Julian centuries, orbital periods, etc.) and convert it into
+/// an angle in degrees.
+///
+/// The result preserves the sign of the fractional part:
+///   - `frac360(1.25)` → `90.0`
+///   - `frac360(-1.25)` → `-90.0`
+///
+/// This differs from `x % 360`, which returns a value in the range [0, 360).
+///
+/// Example:
+///   ```dart
+///   final angle = frac360(2.75); // returns 270.0
+///   ```
 double frac360(double x) => frac(x) * 360;
 
-/// Given hours (or degrees), minutes and seconds,
-/// return decimal hours (or degrees). In the case of hours (angles) < 0.
-double ddd(int d, int m, [double s = 0]) {
-  final sgn = d < 0 || m < 0 || s < 0 ? -1 : 1;
-  return (d.abs() + (m.abs() + s.abs() / 60.0) / 60.0) * sgn;
+/// Converts (deg, min, sec) to decimal degrees.
+double ddd(int deg, int min, [double sec = 0.0]) {
+  final sign = deg < 0 || min < 0 || sec < 0 ? -1 : 1;
+  return sign *
+      (deg.abs() + (min.abs() + sec.abs() / 60.0) / 60.0);
 }
 
+/// Converts decimal degrees to (deg, min, sec).
+/// The sign is only applied to the first non-zero component.
 (int, int, double) dms(double x) {
   int d, m;
   double s;
@@ -78,6 +95,7 @@ double ddd(int d, int m, [double s = 0]) {
   return (d, m, s);
 }
 
+
 /// Convert [x], decimal degrees to:
 /// zodiac sign number (zero based), zodiac degrees, minutes and seconds.
 (int, int, int, double) zdms(double x) {
@@ -87,7 +105,10 @@ double ddd(int d, int m, [double s = 0]) {
   return (z, d % 30, dmsRes.$2, dmsRes.$3);
 }
 
-/// Calculate shortest arc in dergees between [a] and [b], degrees.
+/// Returns the shortest distance (arc length) in degrees between angles [a] and [b].
+///
+/// The result is always positive and in the range [0, 180].
+/// Useful when comparing angles regardless of direction (e.g., aspect orbs).
 double shortestArc(double a, double b) {
   final x = (a - b).abs();
   return x > 180 ? 360 - x : x;
@@ -99,15 +120,10 @@ double shortestArcRad(double a, double b) {
   return x > pi ? pi2 - x : x;
 }
 
-/// Angle `b - a`, accounting for circular values.
-/// Parameters a and b should be in the range `0..360`. The
-/// result will be in the range `-180..180`.
+/// Returns the signed angular difference `b - a`, normalized to [-180, 180] degrees.
 ///
-/// This allows us to directly compare angles which cross through 0:
-/// `359 degrees... 0 degrees... 1 degree...` etc.
-///
-/// [a] is the first angle, in arc-degrees
-/// [b] is the second angle, in arc-degrees
+/// This accounts for circular wrap-around (e.g., from 359° to 1°),
+/// and is useful when determining the direction and amount of angular motion.
 double diffAngle(double a, double b) {
   final x = (b < a) ? b + 360 - a : b - a;
   return x > 180 ? x - 360 : x;
