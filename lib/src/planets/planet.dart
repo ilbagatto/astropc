@@ -28,7 +28,8 @@ typedef HelioRecord = ({
   double lpd,
   double spsi,
   double cpsi,
-  double rho
+  double rho,
+  double nu
 });
 
 class Planet {
@@ -195,6 +196,7 @@ class Planet {
   /// [re] - Sun-Earth distance
   /// [lg] - lonitude of the Earth
   /// [pert] - PertRecord instance
+  /// [nu] - True anomaly
   static HelioRecord calculateHeliocentric(
       OrbitInstance oi, double ma, double re, double lg, PertRecord pert) {
     final s = oi.s + pert.ds; // eccentricity corrected
@@ -221,7 +223,8 @@ class Planet {
       lpd: lpd,
       spsi: sin(psi), // not the same as spsi, for now psi is corrected
       cpsi: cpsi,
-      rho: rho
+      rho: rho,
+      nu: nu
     );
   }
 
@@ -263,7 +266,8 @@ class Planet {
       lpd: h.lpd,
       spsi: h.spsi, // not the same as spsi, for now psi is corrected
       cpsi: h.cpsi,
-      rho: rho
+      rho: rho,
+      nu: h.nu
     );
   }
 

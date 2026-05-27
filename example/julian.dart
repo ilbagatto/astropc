@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:astropc/timeutils.dart';
 
+// ignore: strict_top_level_inference
 String getUsage(parser) {
   return '''
 Julian Date Calculator
@@ -32,6 +33,7 @@ julian --mode=djd "1965-02-01 11:46"
 ''';
 }
 
+// ignore: strict_top_level_inference
 DateTime stringsToDateTime(dateStrings) {
   if (dateStrings.length == 0) {
     return DateTime.now();

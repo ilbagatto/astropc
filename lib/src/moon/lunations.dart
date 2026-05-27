@@ -90,3 +90,25 @@ double findClosestPhase(Quarter quarter, int ye, mo, da) {
 
   return j + calculateDelta(quarter, t, ms, mm, f);
 }
+
+
+/// Illuminated fraction of the Moon's disk.
+///
+/// [moonLongitude] and [sunLongitude] are ecliptic longitudes
+/// in degrees.
+///
+/// Returns:
+///   0.0  -> New Moon
+///   0.5  -> First / Last Quarter
+///   1.0  -> Full Moon
+double illuminatedFraction(
+    double moonLongitude,
+    double sunLongitude,
+) {
+  final elongation = radians(
+    reduceDeg(moonLongitude - sunLongitude),
+  );
+
+  return (1 - cos(elongation)) / 2;
+}
+

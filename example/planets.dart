@@ -9,6 +9,7 @@ import 'package:astropc/sun.dart' as sun;
 import 'package:astropc/timeutils.dart';
 import 'package:sprintf/sprintf.dart';
 
+// ignore: strict_top_level_inference
 String getUsage(parser) {
   return '''
 Displays positions of the Sun, the Moon and the 10 planets, including Pluto.

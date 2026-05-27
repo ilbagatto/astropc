@@ -91,4 +91,26 @@ void main() {
               findClosestPhase(q, ye, mo, da), closeTo(djd as num, delta)));
     }
   });
+
+  group('Illuminated fraction', () {
+    test('is 0 at New Moon', () {
+      expect(illuminatedFraction(10, 10), closeTo(0, delta));
+    });
+
+    test('is 0.5 at First Quarter', () {
+      expect(illuminatedFraction(100, 10), closeTo(0.5, delta));
+    });
+
+    test('is 1 at Full Moon', () {
+      expect(illuminatedFraction(190, 10), closeTo(1, delta));
+    });
+
+    test('is 0.5 at Last Quarter', () {
+      expect(illuminatedFraction(280, 10), closeTo(0.5, delta));
+    });
+
+    test('normalizes longitude difference', () {
+      expect(illuminatedFraction(370, 10), closeTo(0, delta));
+    });
+  });
 }

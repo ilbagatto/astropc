@@ -131,10 +131,11 @@ double diffAngle(double a, double b) {
 
 /// Polar coordinates
 typedef Polar = ({
+  /// Angular coordinate
   double rho,
 
   /// Radial coordinate
   double phi
 
-  /// Angular coordinate
+  
 });

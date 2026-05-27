@@ -1,6 +1,7 @@
 import 'package:astropc/src/planets/orbit.dart';
 import 'package:astropc/src/planets/pert.dart';
 import 'package:astropc/src/planets/sphera.dart';
+import 'package:astropc/src/timeutils/julian.dart';
 import 'package:test/test.dart';
 import 'package:astropc/src/planets/planet.dart';
 
@@ -140,5 +141,27 @@ void main() {
       test('$pla Lat.', () => expect(got.beta, closeTo(c.pos.beta, delta)));
       test('$pla Dist.', () => expect(got.delta, closeTo(c.pos.delta, delta)));
     }
+  });
+
+
+  group('Against Swiss Ephemeris', () {
+    const delta = 1E-3;
+
+    final cases = [
+      (
+        id: PlanetId.Venus,
+        pos: (lambda: 313.0813567, beta: -2.0848354 , delta: 0.910947740)
+      )
+    ];    
+    final jd = julDay(1992, 12, 20);
+    final sph = CelestialSphera(jd, apparent: false);
+    for (var c in cases) {
+      final pla = Planet.forId(c.id);
+      final got = pla.geocentricPosition(sph);
+      test('$pla Lon.', () => expect(got.lambda, closeTo(c.pos.lambda, delta)));
+      test('$pla Lat.', () => expect(got.beta, closeTo(c.pos.beta, delta)));
+      test('$pla Dist.', () => expect(got.delta, closeTo(c.pos.delta, delta)));
+    }
+
   });
 }
